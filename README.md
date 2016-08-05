@@ -1,4 +1,5 @@
-**Preparadurias**
+PREPARADURIAS
+
 *Dias:
   Lunes y martes: 10am - 12pm
   Jueves: 2pm - 4 pm
