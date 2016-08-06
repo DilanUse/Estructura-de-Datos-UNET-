@@ -11,7 +11,9 @@ Jueves: 2pm - 4 pm
 *Nota: El lugar para la preparaduria puede variar de acuerdo a la disponibilidad de los laboratorios, siempre que el C01 este disponible me encontraran alli en las horas indicadas, de no ser así, publicare por aqui mismo en que laboratorio me encontrare... 
 
 *Información:
+
 correo: dilan.useche@unet.edu.ve
+
 tlf: 04247231306
 
 
