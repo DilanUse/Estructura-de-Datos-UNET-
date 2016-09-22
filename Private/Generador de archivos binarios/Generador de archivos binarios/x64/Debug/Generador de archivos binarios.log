@@ -1,0 +1,3 @@
+﻿  Generador de archivos binarios.cpp
+d:\users\dilanu\documents\github\estructura-de-datos-unet-\private\generador de archivos binarios\generador de archivos binarios\datos.h(20): error C3867: 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::c_str': non-standard syntax; use '&' to create a pointer to member
+d:\users\dilanu\documents\github\estructura-de-datos-unet-\private\generador de archivos binarios\generador de archivos binarios\generador de archivos binarios.cpp(27): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
