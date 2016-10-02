@@ -1,0 +1,4 @@
+﻿  stdafx.cpp
+  Generador de archivos binarios.cpp
+d:\users\dilanu\documents\github\estructura-de-datos-unet-\codigo\ejemplos\generador de archivos binarios\generador de archivos binarios\generador de archivos binarios.cpp(33): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generador de archivos binarios.vcxproj -> D:\Users\DilanU\Documents\GitHub\Estructura-de-Datos-UNET-\Codigo\Ejemplos\Generador de archivos binarios\x64\Debug\Generador de archivos binarios.exe
