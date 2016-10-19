@@ -2,9 +2,11 @@ PREPARADURIAS
 
 *Dias:
 
-Lunes y martes: 10am - 12pm
+Lunes: 10am - 12 pm (en el C01) 
 
-Jueves: 2pm - 4 pm
+Martes: 10am - 12pm (en el C08)
+
+Jueves: 2pm - 4 pm (aula no definida)
 
 *Lugar de encuentro: C01
 
