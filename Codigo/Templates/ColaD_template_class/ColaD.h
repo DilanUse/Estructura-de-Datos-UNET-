@@ -92,7 +92,7 @@ template<class T> bool ColaD<T>::agregar( T* info )
 	{
 		if( this->isVacia() ) // si la ColaD esta vacia
 			this->frente = this->fin = nuevo; // frente y fin a nuevo
-		else // si la ColaD no esta vacía
+		else // si la ColaD no esta vacÃ­a
 		{
 			this->fin->setLink_pre( nuevo ); // pre de fin a nuevo
 			this->fin = nuevo; // fin ahora sera nuevo
@@ -178,7 +178,7 @@ template<class T> void ColaD<T>::imprimir() const
 	
 	while( recor ) // mientras no se salga de la ColaD
 	{
-		std::cout << recor->getInfo() << "-->"; // imprime Nodo
+		std::cout << *recor->getInfo() << "-->"; // imprime Nodo
 		recor = recor->getLink_pre(); // recor pasa a su predecesor
 	} // end while
 	
