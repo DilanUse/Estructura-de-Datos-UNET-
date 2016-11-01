@@ -1,0 +1,8 @@
+cancion,2,10
+teclado,3,20
+papel,2,00
+retrovisor,2,50
+libros,1,30
+speek,3,12
+geek,4,18
+polar,3,30
