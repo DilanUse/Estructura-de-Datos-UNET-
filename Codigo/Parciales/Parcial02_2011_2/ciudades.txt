@@ -1,0 +1,9 @@
+12365,Maracaibo,50.91
+54686,Valera,60.89
+56148,Merida,89.44
+87946,San Cristobal,180.61
+64559,Barinas,220.64
+51646,Barquisimeto,256.61
+65461,Valencia,42.66
+56146,Maracay,45.98
+65164,Caracas,550.56

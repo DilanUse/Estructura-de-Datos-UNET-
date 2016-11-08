@@ -1,0 +1,29 @@
+65461,Tocuyito,78.51
+65164,San Antonio,56.20
+87946,Santa ana,95.14
+12365,San sebastian,56.78
+56146,Paya,12.23
+51646,El manzano,48.00
+87946,San josececito,85.90
+54686,San luis,21.98 
+64559,Barinitas,48.10
+12365,Las mercedes,20.39
+51646,Cabudare,78.33
+12365,La victoria,45.78
+87946,Rubio,120.12
+56146,Turmero,86.78
+65461,El rosario,63.79
+54686,Alicia navaz,45.98
+12365,Los dulces,39.45
+54686,Jose Alberto Perez,78.65
+51646,El cercado,69.57
+87946,Palmira,45.36
+64559,Santa Barbara,78.96
+12365,Hato santa ana,48.36
+54686,El buen pastor,36.12
+65164,Los teques,96.28
+87946,Tariba,15.39
+56148,El vigia,236.74
+65461,Los Guayos,89.45
+56146,La morita,96.58
+
