@@ -1,0 +1,6 @@
+81123,Torta criolla,4700
+35211,Arepa,3500
+25212,Paella,890
+14536,Pasta,9870
+24236,Huevos revueltos,150
+20345,Pastel,645
