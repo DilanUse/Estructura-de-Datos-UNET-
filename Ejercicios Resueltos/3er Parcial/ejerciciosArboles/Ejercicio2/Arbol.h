@@ -1,8 +1,8 @@
 /**
  *	@Autor: Dilan Useche
  *	@Date: 10/4/2016
- *	@Release: 23/11/2016
- *	@Version: 1.1
+ *	@Release: 24/4/2016
+ *	@Version: 1.0
  */
 
 
@@ -13,6 +13,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "NodoA.h"
+#include "ListaD.h"
 
 
 /**
@@ -52,8 +53,7 @@ class Arbol
 		int eliminar( T* ); // elimina un NodoA del Arbol
 		void eliminarArbol( NodoA<T>* ); // elimina todos los elementos del Arbol
 		void imprimir( NodoA<T>* ) const; // imprime la ListaD en el flujo std de salida
-		void imprimir( NodoA<T>*, int ) const; // imprime la ListaD en el flujo std de salida
-		int getCantDesc( NodoA<T>*, int nodos = 0 ) const; // devuelve la cantidad de nodos decendientes de un NodoA
+		void llenarLista( NodoA<T>*, ListaD<T>*) const;
 //		void imprimir( bool ) const; // imprime la ListaD en el flujo std de salida
 }; // fin de Arbol
 
@@ -529,7 +529,7 @@ NodoA<T>* Arbol<T>::rotacionCD( NodoA<T>* desequilibrado_hijo, NodoA<T>* desequi
  *	@brief imprime el Arbol en el flujo std de salida,
  *	 Si el Arbol esta vacio, se imprime "NULL"
  *	@since: 1.0
- *	@param NodoA<T>* NodoA donde inicia la busqueda
+ *	@param NodoA<T>* NodoA a imoprimir
  */
 template<class T> void Arbol<T>::imprimir( NodoA<T>* recor ) const
 {
@@ -539,87 +539,22 @@ template<class T> void Arbol<T>::imprimir( NodoA<T>* recor ) const
 		std::cout << "NULL" << std::endl;
 		return;
 	} // fin del if
+	
+	
+	std::cout << *recor->getInfo() <</* " ( " << recor->getFactorE() << " ) " <<*/ std::endl;
 		
 		
 	// si el NodoA recor tiene hijo por la izquierda 
 	if ( recor->getLink_hi() ) // paso recursivo para actualizar al hijo por la izquierda
 		imprimir( recor->getLink_hi() );
-		
-		
-	for( int i = 0; i < recor->getNivel(); i++ )
-		std::cout << "       ";
-		
-	
-	std::cout << *recor->getInfo() << " ( " << recor->getFactorE() << " ) " << std::endl;
 	
 	
 	// si el NodoA recor tiene hijo por la derecha
 	if ( recor->getLink_hd() ) // paso recursivo para actualizar al hijo por la derecha
 		imprimir( recor->getLink_hd() );
+		
+		
 } // fin de imprimir
-
-
-
-/**
- *	@brief imprime nodos de un nivel dado en el flujo std de salida,
- *	 Si No hay nodos en ese nivel o el nivel supera la altura
- *	del arbol, se imprime "NULL"
- *	@since: 1.1
- *	@param NodoA<T>* NodoA donde inicia la busqueda
- *	@param int nivel en el que se deben imprimir los nodos
- */
-template<class T> void Arbol<T>::imprimir( NodoA<T>* recor, int nivel ) const
-{
-	// si recor es NULL o el nivel es mayor a la altura del arbol
-	if( !recor || nivel > this->altura )
-	{
-		std::cout << "NULL" << std::endl;
-		return;
-	} // fin del if
-	
-	
-	// si el nivel del nodo es el nivel especificado 
-	if( recor->getNivel() == nivel )
-		std::cout << *recor->getInfo() << " ( " << recor->getFactorE() << " ) " << std::endl;
-		
-		
-	// si el NodoA recor tiene hijo por la izquierda 
-	if ( recor->getLink_hi() ) // paso recursivo para actualizar al hijo por la izquierda
-		imprimir( recor->getLink_hi(), nivel );
-	
-	
-	// si el NodoA recor tiene hijo por la derecha
-	if ( recor->getLink_hd() ) // paso recursivo para actualizar al hijo por la derecha
-		imprimir( recor->getLink_hd(), nivel );
-} // fin de imprimir
-
-
-/**
- *	@brief devuelve la cantidad de nodos decendientes de un NodoA
- *	@since: 1.1
- *	@param NodoA<T>* NodoA donde inicia la busqueda
- *	@param int cantidad de nodos contados(debe ser cero al llamar a la funcion)
- *	por defecto sera cero( al llamarse debe evitarse enviar un valor diferente de cero )
- *	@return int cantidad de nodos que descienden del NodoA especificado
- */
-template<class T> int Arbol<T>::getCantDesc( NodoA<T>* recor, int nodos ) const
-{
-	// si recor es NULL 
-	if( !recor )
-		return 0;
-	
-		
-	// si el NodoA recor tiene hijo por la izquierda 
-	if ( recor->getLink_hi() ) // paso recursivo para actualizar al hijo por la izquierda
-		nodos = this->getCantDesc( recor->getLink_hi(), nodos );
-	
-	
-	// si el NodoA recor tiene hijo por la derecha
-	if ( recor->getLink_hd() ) // paso recursivo para actualizar al hijo por la derecha
-		nodos = this->getCantDesc( recor->getLink_hd(), nodos );
-		
-	return ++nodos;
-} // fin de getCantDesc
 
 
 #endif
