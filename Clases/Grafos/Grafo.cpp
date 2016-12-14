@@ -17,6 +17,7 @@ void Grafo::inicializar( bool dirigido, bool ponderado )
 { // incializa...
 	this->DIRIGIDO = dirigido;
 	this->PONDERADO = ponderado;
+	this->longitud = 0;
 	this->lista_adyacencia = new ListaD<Vertice>();
 	this->lista_caminos = new ListaD<Camino>();
 } // fin de inicializar
@@ -170,6 +171,18 @@ int Grafo::getNumeroVertices() const
 } // fin de getNUmeroVertices
 
 
+
+/**
+ *	@brief retorna la longitud de todas las aristas del grafo
+ *	@since 1.1
+ *	@return float longitud de las aristas del grafo 	
+ */	
+float Grafo::getLongitud() const
+{
+	return this->longitud;
+} // fin de getLongitud
+
+
 /**
  *	@brief agrega dos Vertices, uno de partida y uno de 
  *	llegada a la lista principal de adyacencia y a su sublista 
@@ -195,7 +208,7 @@ bool Grafo::agregar( Vertice* vertice_partida, Vertice* vertice_destino )
 		vertice_aux = this->lista_adyacencia->getCab(); // obtengo la cab de la LAP
 		estado = vertice_aux->getInfo()->vertices_adyacentes->agregar( // agrego vertice_destino a la lista 
 			vertice_destino, ListaD<Vertice>::AGRE_FIN ); // de adyacencia secundaria(LAS)
-	} // fin del is
+	}
 	else // si no, la lista no esta vacia
 	{
 		// busco al vertice de partida en el Grafo y apunto con vertice_aux
@@ -217,6 +230,7 @@ bool Grafo::agregar( Vertice* vertice_partida, Vertice* vertice_destino )
 	} // fin del if...else
 	
 	
+	this->longitud += vertice_destino->getLongitudArista(); // acumulo la longitud de la arista
 	return ( estado == 1 ); // retorna estado de agregar
 } // fin de agregar
 
@@ -301,38 +315,22 @@ bool Grafo::agregar_camino( Nodo<Camino>* nodo_lista_camino, Nodo<Vertice>* nodo
 			buscar( nodo_agregar->getInfo() ); // lista principal de adyacencia
 		
 	
-//	this->imprimirListaCaminos();////////////////////////////////////////
-//	cout << "capa 1" << endl; ///////////////////////////////////////////////////
-//	cout << "nodo_lista_camino: " << nodo_lista_camino << endl;/////////////////////////////////////////
-//	cout << "nodo_agregar: " << nodo_agregar << endl;////////////////////////////////////////
-//	if( nodo_agregar )////////////////////////////////////////
-//		cout << "nodo_agregar: " << *nodo_agregar->getInfo() << endl;////////////////////////////////////////
-
 		
 	// si el nodo_agregar no esta en la lista de adyacencia
 	if( !nodo_agregar )
 		return true; // entonces llegue al final del camino
 		
 		
-	// nodo_sublista_adyacencia ahora sera la cab de la sublista de adyacencia de nodo_agregar	
-	nodo_sublista_adyacencia = nodo_agregar->getInfo()->vertices_adyacentes->getCab(); 
+	// nodo_sublista_adyacencia ahora sera la cab de la sublista de adyacencia de nodo_agregar
+	if( !nodo_agregar->getInfo()->vertices_adyacentes->isVacia() )	/////////////////////////////
+		nodo_sublista_adyacencia = nodo_agregar->getInfo()->vertices_adyacentes->getCab(); 
+	else
+	nodo_sublista_adyacencia = NULL; /////////////////////////////////////////////////////////////
 	
 	
-//	cout << "nodo_sublista_adyacencia: " << *nodo_sublista_adyacencia->getInfo() << endl; ////////////////////////////////
-//	system( "PAUSE" );////////////////////////////////////////
-//	cout << endl; ////////////////////////////////////////
 	// llamada recursiva con argumentos de Nodo de Camino, y Nodo a agregar respectivamente 
 	finCamino = this->agregar_camino( nodo_lista_camino, nodo_sublista_adyacencia ); 
 	
-//	this->imprimirListaCaminos();////////////////////////////////////////
-//	cout << "capa 2" << endl; ///////////////////////////////////////////////////
-//	cout << "nodo_lista_camino: " << nodo_lista_camino << endl;/////////////////////////////////////////
-//	cout << "nodo_agregar: " << nodo_agregar << endl;////////////////////////////////////////
-//	if( nodo_agregar )////////////////////////////////////////
-//		cout << "nodo_agregar: " << *nodo_agregar->getInfo() << endl;////////////////////////////////////////
-//	cout << "nodo_sublista_adyacencia: " << *nodo_sublista_adyacencia->getInfo() << endl; ////////////////////////////////
-//	cout << endl; ////////////////////////////////////////
-//	system( "PAUSE" );////////////////////////////////////////
 
 	// hacer mientras nodo_sublista_adyacencia tenga un sucesor
 	do
@@ -345,7 +343,6 @@ bool Grafo::agregar_camino( Nodo<Camino>* nodo_lista_camino, Nodo<Vertice>* nodo
 				return true; // se llego al final del camino
 			else // si no, entonces si tiene sucesor, debo crear nuevo Camino
 			{
-//				cout << "Hay un camino diferente" << endl;////////////////////////////////////////
 				// nodo_aux_vertice será el Vertice en la cab de  
 				nodo_aux_vertice = this->lista_caminos->getFin() // la lista de vertices del ultimo Camino
 					->getInfo()->lista_vertices->getCab(); // en la lista de caminos
@@ -354,22 +351,15 @@ bool Grafo::agregar_camino( Nodo<Camino>* nodo_lista_camino, Nodo<Vertice>* nodo
 				this->lista_caminos->agregar( new Camino(), ListaD<Camino>::AGRE_FIN );
 				nodo_aux_camino = this->lista_caminos->getFin(); // nodo_aux_camino será el ultimo Camino 
 				
-//				this->imprimirListaCaminos();////////////////////////////////////////
-//				cout << "capa 3" << endl; ///////////////////////////////////////////////////
-//				cout << "nodo_aux_vertice: " << *nodo_aux_vertice->getInfo() << endl;////////////////////////////////////////
-//				cout << "nodo_aux_camino: " << *nodo_aux_camino->getInfo() << endl;////////////////////////////////////////
-//				cout << "nodo_agregar: " << *nodo_agregar->getInfo() << endl;////////////////////////////////////////
+				
 				// copio camino de nodo_lista_camino desde su cab hasta nodo_agregar al nuevo Camino
 				while( true )
 				{
 					// agrego a nodo_aux_vertice a la lista de Vertices de nodo_aux_camino
 					nodo_aux_camino->getInfo()->lista_vertices->agregar( 
 						nodo_aux_vertice->getInfo(), ListaD<Vertice>::AGRE_FIN );
-//					cout << "bien" << endl;////////////////////////////////////////	
-//					cout << "nodo_aux_vertice: " << *nodo_aux_vertice->getInfo() << endl;////////////////////////////////////////
-//					cout << "nodo_agregar: " << *nodo_agregar->getInfo() << endl;////////////////////////////////////////
-//					cout << "iguales: " << ( nodo_aux_vertice->getInfo()->getIdentificador() 
-//						== nodo_agregar->getInfo()->getIdentificador() ) << endl; /////////////////////
+
+
 					// si nodo_aux_vertice es el mismo Vertice de nodo_agregar
 					if (  *nodo_aux_vertice->getInfo() == *nodo_agregar->getInfo() )
 						break; // dejo de copiar el camino 
@@ -379,31 +369,23 @@ bool Grafo::agregar_camino( Nodo<Camino>* nodo_lista_camino, Nodo<Vertice>* nodo
 					nodo_aux_vertice = nodo_aux_vertice->getLink_suc();
 				} // fin del while
 			} // fin del if...else
-//			cout << "se copio un nuevo camino" << endl;////////////////////////////////////////
-//			this->imprimirListaCaminos();////////////////////////////////////////
-//			system( "PAUSE" );////////////////////////////////////////
-//			cout << endl; ////////////////////////////////////////
 		} // fin del if
 		
 		
 		// si nodo_sublista_adyacencia tiene sucesor
 		if( nodo_sublista_adyacencia->getLink_suc() )
 		{
-//			cout << "capa4" << endl;////////////////////////////////////////////////
 			nodo_sublista_adyacencia = nodo_sublista_adyacencia->getLink_suc();
-//			cout << "nodo_sublista_adyacencia: " << *nodo_sublista_adyacencia->getInfo() << endl;////////////////////////////
 			
 			
 			// si ya se llego al final del camino
 			if( finCamino )
 			{
-//				cout << "Fin de camino" << endl;/////////////////////////
 				// llamada recursiva con argumentos de Nodo de Camino, y Nodo a agregar respectivamente 
 			/*	finCamino =*/ agregar_camino( nodo_aux_camino, nodo_sublista_adyacencia );
 			}
 			else // si no, no se ha llegado al final del camino
 			{
-//				cout << "No hay fin de camino" << endl;///////////////////////
 				// llamada recursiva con argumentos de Nodo de Camino, y Nodo a agregar respectivamente
 				finCamino = agregar_camino( nodo_lista_camino, nodo_sublista_adyacencia );
 			} // fin del if...else
@@ -531,11 +513,6 @@ void Grafo::buscarCaminos_maxVertices()
 			// mientras travel_camino tenga dirección valida
 			while( travel_camino )
 			{
-//				recor_camino->getInfo()->lista_vertices->imprimir();////////////////////////////////
-//				travel_camino->getInfo()->lista_vertices->imprimir();//////////////////////////
-//				cout << recor_camino->getInfo()->iguales( travel_camino->getInfo(), true ) << endl;
-//				system( "PAUSE" ); //////////////////////////// /////////
-//				system( "cls" ); ///////////////////////////////////////////////
 				// si recor_camino y travel_camino no son el mismo Caminos pero son
 				//  Caminos exactamente iguales(mismos vertices) 
 				if( !( *recor_camino->getInfo() == *travel_camino->getInfo() ) &&
@@ -558,6 +535,59 @@ void Grafo::buscarCaminos_maxVertices()
 
 
 /**
+ *	@brief busca los Caminos con menor o mayor numero de vertices
+ *	en el Grafo, segun sea especificado, lo hace
+ *	sin repetir Vertices ni aristas, es decir
+ *	sin formar ciclos, los Caminos resultantes seran guardados 
+ *	en la lista de Caminos del Grafo 
+ *	@param bool determina si se buscan Caminos de longitud
+ *	minima o de longitud maxima, en el caso de que sea true
+ *	o se omita el parámetro se buscaran Caminos de longitud minima,
+ *	en caso contrario se buscaran Caminos de longitud maxima  
+ *	@since 1.0
+ */	
+void Grafo::buscarCaminos_MinMaxVertices( bool min )
+{
+	Nodo<Camino>* recor_camino; // apuntador para recorrer lista de Caminos
+	Nodo<Camino>* travel_camino; // apuntador para recorrer lista de Caminos
+	Nodo<Camino>* eliminar_camino; // apuntador para eliminar Caminos
+		
+	
+	// recor_camino empieza en la cab de la lista de Caminos
+	recor_camino = this->lista_caminos->getCab();
+	
+	
+	// mientras recor_camino tenga dirección valida 
+	while( recor_camino )
+	{
+		// travel_camino empieza en la cab de la lista de Caminos
+		travel_camino = this->lista_caminos->getCab();
+				
+				
+		// mientras travel_camino tenga dirección valida
+		while( travel_camino )
+		{
+			// si estoy buscando Caminos maximos y el Camino de recor_camino
+			// tiene mayor longitud que el Camino de travel_camino
+			if( ( !min && *travel_camino->getInfo() < *recor_camino->getInfo() ) ||
+				( min && *recor_camino->getInfo() < *travel_camino->getInfo() ) )
+			{
+				eliminar_camino = travel_camino; // se eliminara a travel_camino
+				travel_camino = travel_camino->getLink_suc(); // travel_camino será sus sucesor
+				this->lista_caminos->eliminar( // elimino a eliminar_camino de la lista de 
+					ListaD<Camino>::ELIM_ELEMENTO, eliminar_camino->getInfo() ); // Caminos 
+			} // si no, entonces estoy buscando minimos
+			else // si no, entonces travel_camino no tiene menos Vertices que recor_camino
+				travel_camino = travel_camino->getLink_suc();  // travel_camino será sus sucesor
+		} // fin del while
+				
+				
+		recor_camino = recor_camino->getLink_suc(); // recor_camino será su sucesor 
+	} // fin del while	
+} // fin de buscarCaminos_minMaxLongitud
+
+
+/**
  *	@brief busca los Caminos con menor o mayor longitud
  *	en el Grafo, segun sea especificado, lo hace
  *	sin repetir Vertices ni aristas, es decir
@@ -567,7 +597,7 @@ void Grafo::buscarCaminos_maxVertices()
  *	Caminos que tengan el numero de Vertices del Grafo
  *	nota: en caso de que el Grafo sea dirigido, buscara los
  *	Caminos con mayor cantidad de Vertices 
- *	nota: en cadp de que el Grafo no sea ponderado solo
+ *	nota: en caso de que el Grafo no sea ponderado solo
  *	se buscaran los Caminos con mayor cantidad de Vertices
  *	@param bool determina si se buscan Caminos de longitud
  *	minima o de longitud maxima, en el caso de que sea true
@@ -619,6 +649,42 @@ void Grafo::buscarCaminos_MinMaxLongitud( bool min )
 		recor_camino = recor_camino->getLink_suc(); // recor_camino será su sucesor 
 	} // fin del while	
 } // fin de buscarCaminos_minMaxLongitud
+
+
+/**
+ *	@brief buscas los caminos sin un vertice intermedio dado,
+ *	los caminos resultantes son guardados en la lista de caminos 
+ *	del grafo
+ *	@param Vertice* vertice por el cual se van a filtrar los caminos
+ *	@since 1.0
+ */	
+void Grafo::buscarCaminosSinVertice( Vertice* inter )
+{
+
+	Nodo<Camino>* travel_camino; // apuntador para recorrer lista de Caminos
+	Nodo<Camino>* eliminar_camino; // apuntador para eliminar Caminos
+		
+		
+	// travel_camino empieza en la cab de la lista de Caminos
+	travel_camino = this->lista_caminos->getCab();
+			
+			
+	// mientras travel_camino tenga dirección valida
+	while( travel_camino )
+	{
+		// si estoy buscando Caminos maximos y el Camino de recor_camino
+		// tiene mayor longitud que el Camino de travel_camino
+		if( travel_camino->getInfo()->lista_vertices->buscar( inter ) )
+		{
+			eliminar_camino = travel_camino; // se eliminara a travel_camino
+			travel_camino = travel_camino->getLink_suc(); // travel_camino será sus sucesor
+			this->lista_caminos->eliminar( // elimino a eliminar_camino de la lista de 
+				ListaD<Camino>::ELIM_ELEMENTO, eliminar_camino->getInfo() ); // Caminos 
+		} // si no, entonces estoy buscando minimos
+		else // si no, entonces travel_camino no tiene menos Vertices que recor_camino
+			travel_camino = travel_camino->getLink_suc();  // travel_camino será sus sucesor
+	} // fin del while
+} // buscarCaminosSinVertice
 
 
 /**
@@ -750,6 +816,49 @@ bool Grafo::conectividad( Vertice* A, Vertice* B )
 	} // fin del if...else
 } // fin de conectividad
 
+
+ /**
+ *	@brief busca los Caminos con menor o mayor cantidad de vertices
+ *	entre un par de Vertices dados segun se especifique, y obviando
+ *  un vertice intermedio si se especifica. Lo hace
+ *	sin repetir Vertices ni aristas, es decir
+ *	sin formar ciclos, los Caminos resultantes seran guardados 
+ *	en la lista de Caminos del Grafo 
+ *	nota: en caso de que el Grafo no sea ponderado entonces
+ *	se buscan todos los Caminos desde A hasta B
+ *	@param Vertice* Vertice de partida 
+ *	@param Vertice* Vertice de llegada  
+ *	@param bool determina si se buscan Caminos con mayor numero de vertices o
+ *	menor numero de vertices, en el caso de que sea true
+ *	o se omita el parámetro se buscaran Caminos con la menor cantidad de vertices,
+ *	en caso contrario se buscaran Caminos con la mayor cantidad de vertices  
+ *	@since 1.1
+ *	@return bool true si existe conectividad entre A y B, de 
+ *	lo contrario false
+ *	nota: en caso de que no exista el Vertices A especificado
+ *	en el Grafo, la funcion retornara false, al igual que si 
+ *	existiera pero el Grafo fuerá dirigido y este fuera un pozo
+ */	
+bool Grafo::buscarCaminos_MinMaxVertices_Vertices( Vertice* A, Vertice* B, bool min, Vertice* inter ) 
+{
+	// si existe conectividad entre A y B
+	if( this->conectividad( A, B ) )
+	{
+		// si se especifico un vertice intermedio a obviar
+		if( inter )
+		{
+			this->buscarCaminosSinVertice( inter );
+		} // fin del if
+		
+		
+		// busca los Caminos mas largos o cortos segun se especifico 
+		this->buscarCaminos_MinMaxVertices( min );
+		return true; 
+	}
+	else // si no, entonces no existe conectividad
+		return false; // no existen Caminos entre A y B
+} // fin de buscarCaminos_MinMaxVertices_Vertices
+
  
  /**
  *	@brief busca los Caminos con menor o mayor longitud
@@ -772,11 +881,18 @@ bool Grafo::conectividad( Vertice* A, Vertice* B )
  *	en el Grafo, la funcion retornara false, al igual que si 
  *	existiera pero el Grafo fuerá dirigido y este fuera un pozo
  */	
-bool Grafo::buscarCaminos_MinMaxLongitud_Vertices( Vertice* A, Vertice* B, bool min )
+bool Grafo::buscarCaminos_MinMaxLongitud_Vertices( Vertice* A, Vertice* B, bool min, Vertice* inter )
 {
 	// si existe conectividad entre A y B
 	if( this->conectividad( A, B ) )
 	{
+		// si se especifico un vertice intermedio a obviar
+		if( inter )
+		{
+			this->buscarCaminosSinVertice( inter );
+		} // fin del if
+		
+		
 		// busca los Caminos mas largos o cortos segun se especifico 
 		this->buscarCaminos_MinMaxLongitud( min );
 		return true; 
