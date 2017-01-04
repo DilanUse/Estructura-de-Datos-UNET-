@@ -1,0 +1,12 @@
+﻿  stdafx.cpp
+  MinMax(4 capas con hilos).cpp
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(104): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(126): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(150): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(173): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(200): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(221): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(249): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(270): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+d:\users\dilanu\desktop\minmax(4 capas con hilos) - copia\minmax(4 capas con hilos)\minmax(4 capas con hilos).cpp(54): warning C4715: 'llena': not all control paths return a value
+  MinMax(4 capas con hilos).vcxproj -> D:\Users\DilanU\Desktop\MinMax(4 capas con hilos) - copia\Debug\MinMax(4 capas con hilos).exe
